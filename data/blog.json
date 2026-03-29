@@ -1,0 +1,62 @@
+[
+  {
+    "id": "yolo-training-guide",
+    "type": "blog",
+    "title": "YOLOv8 训练全攻略：从数据准备到模型部署",
+    "date": "2026-03-15",
+    "tags": ["YOLOv8", "训练", "部署"],
+    "excerpt": "详细记录了使用 YOLOv8 构建印刷品瑕疵检测项目的完整流程，包括数据标注、训练调参、ONNX 导出与 WPF 集成。",
+    "content": "## 完整流程\n\n### 1. 数据准备\n\n使用 LabelImg 进行标注，YOLO 格式要求每个图像对应一个同名 .txt 文件，格式为：\n\n```\n<class_id> <x_center> <y_center> <width> <height>\n```\n\n其中坐标都是归一化值（0-1）。\n\n### 2. 训练\n\n```bash\nyolo detect train data=defect.yaml model=yolov8n.pt epochs=100 imgsz=640\n```\n\n关键调参：\n- `imgsz`: 输入分辨率，印刷瑕疵检测用 1280 效果更好\n- `augment`: 开启 Mosaic 和 HSV 增强\n- `patience`: 早停，设为 20 epoch\n\n### 3. ONNX 导出\n\n```bash\nyolo export model=best.pt format=onnx opset=11\n```\n\n### 4. WPF 集成\n\n通过 ONNX Runtime 加载模型，WebSocket 推流到 WPF 界面。",
+    "rating": 5
+  },
+  {
+    "id": "pytorch-distributed",
+    "type": "blog",
+    "title": "PyTorch 分布式训练实战：多卡并行那些坑",
+    "date": "2026-02-28",
+    "tags": ["PyTorch", "分布式", "训练"],
+    "excerpt": "总结了在多卡分布式训练中遇到的通信瓶颈、梯度同步与学习率调度问题及解决方案。",
+    "content": "## 常见问题\n\n### NCCL 连接失败\n\n多机训练时 NCCL 初始化失败，检查：\n1. NCCL 版本与 PyTorch 匹配\n2. 节点间网络互通（`nccl-test`）\n3. 防火墙开放 29500 端口\n\n### 梯度同步\n\n`DistributedDataParallel` 默认全局同步，使用 `no_sync()` 可以临时禁止同步以节省通信。\n\n### 学习率调度\n\n分布式训练时学习率需要线性缩放：\n```python\nlr = base_lr * world_size * max(1.0, epoch/10)\n```",
+    "rating": 4
+  },
+  {
+    "id": "paper-reading-method",
+    "type": "blog",
+    "title": "如何高效阅读 Paper：我的筛选与笔记方法论",
+    "date": "2026-01-20",
+    "tags": ["Research", "方法论", "笔记"],
+    "excerpt": "从每年数千篇论文中筛选高价值工作，建立结构化笔记体系，提高研究密度。",
+    "content": "## 筛选流程\n\n1. **标题 + 摘要过滤**（2 min）\n   - 是否与我研究相关？\n   - 方法创新点明确吗？\n\n2. **图表扫读**（5 min）\n   - 主要结果图表是否支持摘要结论？\n   - 对比方法是否足够强（baseline有没有好好加）\n\n3. **精读方法**（20 min）\n   - 问题建模是否合理\n   - 实验设置是否公平\n   - 消融实验是否充分\n\n## 笔记格式\n\n每篇论文记录：标题、作者、顶会/期刊、读后日期、核心创新点、关键ideas、我的评价（1-5星）",
+    "rating": 5
+  },
+  {
+    "id": "diary-001",
+    "type": "diary",
+    "title": "OpenClaw 终于跑起来了！",
+    "date": "2026-03-29",
+    "tags": ["OpenClaw", "日志"],
+    "excerpt": "折腾了一整晚，终于把 OpenClaw 的本地部署跑通了。记录一下关键步骤和踩的坑。",
+    "content": "## 背景\n\n想在自己的机器上跑 OpenClaw 看看效果，官方文档写得比较简略，实际部署踩了不少坑。\n\n## 关键步骤\n\n1. 环境：Python 3.11 + venv\n2. 安装：`pip install openclaw`\n3. 配置 API key（支持 OpenAI / Claude 多模型）\n4. 启动：`openclaw serve`\n\n## 踩的坑\n\n- **坑1**：默认端口 18789 被占用，换到 18790\n- **坑2**：模型选了 Claude但没配置正确的 endpoint，报403\n- **坑3**：agent 任务太长会超时，加了 `timeout=300` 参数\n\n## 下一步\n\n接下来要把 OpenClaw 和 Star Office UI 对接起来，让 AI agent 的状态可以实时显示在看板上。",
+    "rating": null
+  },
+  {
+    "id": "diary-002",
+    "type": "diary",
+    "title": "印刷检测项目终于有了第一个端到端 demo",
+    "date": "2026-03-15",
+    "tags": ["项目日志", "YOLOv8"],
+    "excerpt": "从相机采集到模型推理到 WPF 展示，整条链路第一次全部打通！",
+    "content": "## 里程碑\n\n今天第一次完成从相机输入到检测结果展示的完整流程：\n\n```\nGigE相机 → OpenCV采集 → YOLOv8推理 → WebSocket → WPF界面\n```\n\nFPS 稳定在 35 帧，延迟控制在 50ms 以内。\n\n## 还存在的问题\n\n- 相机参数还没自动化配置，每次要手动调\n- 模型在复杂背景图片上误检率高\n- WebSocket 断连重连逻辑还没做\n\n## 下一步\n\n1. 加相机自动白平衡\n2. 收集更多负样本做难例挖掘\n3. 实现断连重连",
+    "rating": null
+  },
+  {
+    "id": "diary-003",
+    "type": "diary",
+    "title": "daily_stock_analysis 为什么要用股神这个项目名字",
+    "date": "2026-03-01",
+    "tags": ["项目日志", "股票"],
+    "excerpt": "这个项目名字本来叫 stock-agent，后来看到老婆说「你怎么天天研究炒股」，就改名了。",
+    "content": "## 项目起源\n\n老婆问我：你天天对着电脑研究炒股软件，是想当股神吗？\n\n我想了想，那我干脆就叫「股神」吧。\n\n于是这个 LLM 股票分析项目就有了一个接地气的中文名：股神。\n\n## 功能\n\n- 每天定时拉取 A股/港股/美股行情\n- 用 LLM 分析新闻情绪\n- 生成投资决策建议\n- 推送到微信/飞书\n\n## 现状\n\ndemo 已经跑起来了，但LLM的幻觉问题还是比较严重，经常把不相关的新闻也当成利好来解读。\n\n## 反思\n\n金融领域对准确性要求极高，纯 LLM 决策目前还不可靠。这个项目更像是给自己一个每日的投资信息整合，而不是投资建议生成器。",
+    "rating": null
+  }
+]

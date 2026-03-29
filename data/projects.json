@@ -1,0 +1,62 @@
+[
+  {
+    "id": "printing-defect-detection",
+    "name": "印刷品瑕疵检测系统",
+    "name_en": "Printing Defect Detection",
+    "description": "基于 YOLOv8 的实时工业检测系统，支持 WebSocket 实时推流，Windows WPF 桌面应用展示",
+    "tech": ["YOLOv8", "PyTorch", "WPF", "WebSocket", "GigE Vision"],
+    "github": "https://github.com/Garyko0730/printing-defect-detection",
+    "stars": null,
+    "lang": "Python",
+    "image": "https://picsum.photos/seed/printing/800/600",
+    "featured": true
+  },
+  {
+    "id": "star-office-ui",
+    "name": "Star Office UI",
+    "name_en": "Star Office UI",
+    "description": "像素风格的 AI Agent 办公室状态看板，多 Agent 可视化，三语言支持",
+    "tech": ["Phaser 3", "Flask", "JavaScript"],
+    "github": "https://github.com/Garyko0730/Star-Office-UI-Ko",
+    "stars": null,
+    "lang": "JavaScript",
+    "image": "https://picsum.photos/seed/staroffice/800/600",
+    "featured": true
+  },
+  {
+    "id": "pixel-office",
+    "name": "Pixel Office",
+    "name_en": "Pixel Office",
+    "description": "展示 OpenClaw 多 Agent 状态的像素办公室网页 UI，Phaser 3 + Flask",
+    "tech": ["Phaser 3", "Flask", "Python"],
+    "github": "https://github.com/Garyko0730/pixel-office",
+    "stars": null,
+    "lang": "JavaScript",
+    "image": "https://picsum.photos/seed/pixeloffice/800/600",
+    "featured": true
+  },
+  {
+    "id": "daily-stock-analysis",
+    "name": "LLM 股息智能分析",
+    "name_en": "Daily Stock Analysis",
+    "description": "LLM 驱动的 A/H/美股智能分析：多数据源行情 + 实时新闻 + LLM 决策仪表盘",
+    "tech": ["LLM", "Python", "Flask"],
+    "github": "https://github.com/Garyko0730/daily_stock_analysis",
+    "stars": null,
+    "lang": "Python",
+    "image": "https://picsum.photos/seed/stock/800/600",
+    "featured": false
+  },
+  {
+    "id": "jarvis-diary",
+    "name": "贾维斯养成日记",
+    "name_en": "Jarvis Diary",
+    "description": "AI Agent 成长历程展示网站，记录 OpenClaw 的学习与进化",
+    "tech": ["HTML", "CSS", "JavaScript"],
+    "github": "https://github.com/Garyko0730/jarvis-diary",
+    "stars": null,
+    "lang": "HTML",
+    "image": "https://picsum.photos/seed/jarvis/800/600",
+    "featured": false
+  }
+]

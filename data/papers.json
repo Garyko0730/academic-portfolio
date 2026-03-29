@@ -1,0 +1,50 @@
+[
+  {
+    "id": "yolo-v8",
+    "title": "YOLOv8: Advances in Real-Time Object Detection",
+    "authors": "Jocher et al.",
+    "venue": "Ultralytics, 2023",
+    "date": "2026-03-10",
+    "tags": ["Object Detection", "YOLO", "Real-time"],
+    "summary": "YOLOv8 是 Ultralytics发布的最新一代YOLO模型，在COCO上达到了更好的speed-accuracy tradeoff。骨干网络采用CSP结构，Neck使用PANet，检测头解耦了分类和定位任务。训练时使用Mosaic增强和混合精度加速。",
+    "link": "https://docs.ultralytics.com/",
+    "rating": 4,
+    "key_ideas": ["检测头解耦", "Anchor-free设计", "CIoU +斐波那契初抵"]
+  },
+  {
+    "id": "sam",
+    "title": "Segment Anything Model (SAM)",
+    "authors": "Kirillov et al.",
+    "venue": "Meta AI, ICCV 2023",
+    "date": "2026-02-20",
+    "tags": ["Segmentation", "Foundation Model", "Prompt-based"],
+    "summary": "SAM 是一个prompt-based的图像分割基础模型，可以对任意图像进行分割。核心是一个基于ViT的image encoder + prompt encoder + mask decoder架构。提出了迄今为止最大的分割数据集SA-1B（11M images, 1B masks）。零样本和少样本性能优异。",
+    "link": "https://segment-anything.com/",
+    "rating": 5,
+    "key_ideas": ["Prompt-based分割", "ViT-H image encoder", "SA-1B数据集"]
+  },
+  {
+    "id": "dino",
+    "title": "DINO: DETR with Improved Training for Open-vocabulary Object Detection",
+    "authors": "Li et al.",
+    "venue": "ICCV 2023",
+    "date": "2026-02-05",
+    "tags": ["Open-vocabulary", "Detection", "Transformer"],
+    "summary": "DINO是一个开放词汇目标检测模型，在Swin Transformer backbone上结合文本-图像对比学习，在LVIS数据集上取得了显著改进。",
+    "link": "https://github.com/IDEA-Research/DINO",
+    "rating": 4,
+    "key_ideas": ["开放词汇检测", "文本-图像对比", "Swin Transformer"]
+  },
+  {
+    "id": "rt-detr",
+    "title": "RT-DETR: Real-Time Detector with Transformer",
+    "authors": "Zhou et al.",
+    "venue": "Baidu, 2023",
+    "date": "2026-01-28",
+    "tags": ["Real-time", "Transformer", "Detection"],
+    "summary": "RT-DETR是百度提出的实时Transformer检测器，在V100上达到108FPS同时保持高精度。采用混合编码器设计，DNPS算子显著加速。",
+    "link": "https://github.com/lyuwenyu/RT-DETR",
+    "rating": 4,
+    "key_ideas": ["实时Transformer", "混合编码器", "DNPS算子"]
+  }
+]

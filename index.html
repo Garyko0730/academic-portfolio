@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KoPang · Machine Vision Researcher</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Crimson Pro', 'Georgia', 'serif'],
+            sans: ['Atkinson Hyperlegible', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            cta: '#2563EB',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-card:hover img { transform: scale(1.04); }
+    .paper-card:hover { border-color: #2563EB; }
+    .feed-card:hover { border-color: #2563EB; }
+    .cursor-pointer { cursor: pointer; }
+    html { scroll-behavior: smooth; }
+    .diary-entry { border-left: 3px solid #2563EB; }
+    .blog-entry { border-left: 3px solid #10B981; }
+    .rating-star { color: #F59E0B; }
+    .fade-in { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors duration-300">
+
+  <!-- Navbar -->
+  <nav class="fixed top-4 left-4 right-4 z-50">
+    <div class="max-w-6xl mx-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-2xl px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-xl font-semibold tracking-tight cursor-pointer">KoPang</a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#projects" class="hover:text-cta transition-colors cursor-pointer">Projects</a>
+        <a href="#papers" class="hover:text-cta transition-colors cursor-pointer">Papers</a>
+        <a href="#feed" class="hover:text-cta transition-colors cursor-pointer">Feed</a>
+        <a href="#about" class="hover:text-cta transition-colors cursor-pointer">About</a>
+        <a href="#contact" class="hover:text-cta transition-colors cursor-pointer">Contact</a>
+      </div>
+      <button class="flex items-center w-14 h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full p-1 cursor-pointer transition-colors duration-300" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-toggle">
+        <div class="flex items-center justify-between w-full px-1 transition-transform duration-300" id="toggle-track">
+          <svg class="sun-icon w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg class="moon-icon w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content (changes with hash routing) -->
+  <main id="main-content">
+
+    <!-- ===== HOME PAGE ===== -->
+    <div id="page-home">
+
+      <!-- Hero -->
+      <section class="min-h-screen flex items-center justify-center px-6 pt-24">
+        <div class="max-w-3xl text-center reveal">
+          <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-4 tracking-widest uppercase">Machine Vision · Researcher</p>
+          <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">KoPang</h1>
+          <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
+            暨南大学研究生，研究方向为机器视觉与视觉基础模型。当前聚焦于目标检测、图像分割及深度学习在工业检测中的应用。
+          </p>
+          <div class="flex items-center justify-center gap-4 flex-wrap">
+            <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors cursor-pointer">
+              View Projects
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+            <a href="https://github.com/Garyko0730" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 dark:border-zinc-700 rounded-xl font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="px-6 py-24">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-12 reveal">
+            <h2 class="font-serif text-4xl font-bold mb-3">Projects</h2>
+            <p class="text-zinc-600 dark:text-zinc-400">来自 GitHub 的真实项目</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+            <!-- Projects loaded from data/projects.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Papers -->
+      <section id="papers" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-12 reveal">
+            <h2 class="font-serif text-4xl font-bold mb-3">Paper Reading</h2>
+            <p class="text-zinc-600 dark:text-zinc-400">日常论文积累，按阅读时间排序</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="papers-grid">
+            <!-- Papers loaded from data/papers.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Feed (Blog + Diary) -->
+      <section id="feed" class="px-6 py-24">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-12 reveal">
+            <h2 class="font-serif text-4xl font-bold mb-3">Feed</h2>
+            <p class="text-zinc-600 dark:text-zinc-400">Blog · 日记 · 踩坑记录</p>
+          </div>
+
+          <!-- Feed Type Filter -->
+          <div class="flex gap-3 mb-8 reveal">
+            <button onclick="filterFeed('all')" class="feed-filter active text-xs font-medium px-4 py-2 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer" data-filter="all">全部</button>
+            <button onclick="filterFeed('blog')" class="feed-filter text-xs font-medium px-4 py-2 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer" data-filter="blog">Blog</button>
+            <button onclick="filterFeed('diary')" class="feed-filter text-xs font-medium px-4 py-2 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer" data-filter="diary">日记</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="feed-grid">
+            <!-- Feed loaded from data/blog.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+              <div class="aspect-square rounded-3xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 max-w-md">
+                <img src="https://picsum.photos/seed/kopang/800/800" alt="KoPang" class="w-full h-full object-cover" loading="lazy">
+              </div>
+            </div>
+            <div class="reveal">
+              <h2 class="font-serif text-4xl font-bold mb-6">About</h2>
+              <div class="space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p>
+                  我是 KoPang，暨南大学研究生，研究方向为机器视觉与视觉基础模型。研究兴趣包括目标检测、图像分割、视频理解及深度学习在工业检测中的实际应用。
+                </p>
+                <p>
+                  在此之前，我曾在多个 AI 项目中承担开发与部署工作，包括印刷品瑕疵检测系统、LLM 股息分析工具及多 Agent 状态可视化看板。
+                </p>
+                <p>
+                  业余时间，我喜欢研究如何用 AI Agent 自动化日常工作流程，以及探索视觉基础模型在端侧部署的可能性。
+                </p>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">Python</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">PyTorch</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">OpenCV</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">YOLOv8</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">ONNX</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">WPF</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">CUDA</span>
+                <span class="text-xs px-3 py-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full border border-zinc-300 dark:border-zinc-700">Deep Learning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+        <div class="max-w-2xl mx-auto text-center reveal">
+          <h2 class="font-serif text-4xl font-bold mb-4">Contact</h2>
+          <p class="text-zinc-600 dark:text-zinc-400 mb-12">有问题或合作意向，欢迎联系。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            <a href="mailto:kopang0730@stu2021.jnu.edu.cn" class="flex flex-col items-center gap-3 p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer">
+              <svg class="w-6 h-6 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <span class="text-sm font-medium">Email</span>
+              <span class="text-xs text-zinc-500">kopang0730</span>
+            </a>
+
+            <a href="https://github.com/Garyko0730" target="_blank" class="flex flex-col items-center gap-3 p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer">
+              <svg class="w-6 h-6 text-zinc-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <span class="text-sm font-medium">GitHub</span>
+              <span class="text-xs text-zinc-500">@Garyko0730</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center gap-3 p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer">
+              <svg class="w-6 h-6 text-zinc-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <span class="text-sm font-medium">LinkedIn</span>
+              <span class="text-xs text-zinc-500">KoPang</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="px-6 py-8 border-t border-zinc-200 dark:border-zinc-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+          <p>© 2026 KoPang. All rights reserved.</p>
+          <p>Built with Passion & Persistence 🦞</p>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- ===== BLOG DETAIL PAGE ===== -->
+    <div id="page-blog-detail" class="hidden min-h-screen px-6 pt-32">
+      <div class="max-w-3xl mx-auto">
+        <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-cta transition-colors cursor-pointer mb-8">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          返回 Feed
+        </button>
+        <div id="blog-detail-content" class="fade-in"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ===== DATA =====
+    let projectsData = [];
+    let papersData = [];
+    let feedData = [];
+    let currentFilter = 'all';
+
+    // ===== THEME =====
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    // ===== SCROLL REVEAL =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ===== ROUTER =====
+    function navigateTo(page, params) {
+      const homePage = document.getElementById('page-home');
+      const detailPage = document.getElementById('page-blog-detail');
+
+      if (page === 'home') {
+        homePage.classList.remove('hidden');
+        detailPage.classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.pushState(null, '', window.location.pathname);
+        renderRevealElements();
+      } else if (page === 'blog-detail') {
+        homePage.classList.add('hidden');
+        detailPage.classList.remove('hidden');
+        renderBlogDetail(params.id);
+        history.pushState(null, '', '#' + params.id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function handleHashChange() {
+      const hash = window.location.hash.slice(1);
+      if (hash && hash.startsWith('blog-')) {
+        const id = hash.replace('blog-', '');
+        navigateTo('blog-detail', { id });
+      } else {
+        navigateTo('home');
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // ===== RENDER HELPERS =====
+    function renderRevealElements() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        revealObserver.observe(el);
+      });
+    }
+
+    function renderStars(rating) {
+      if (!rating) return '';
+      return Array(5).fill(0).map((_, i) =>
+        `<span class="rating-star">${i < rating ? '★' : '☆'}</span>`
+      ).join('');
+    }
+
+    function renderTags(tags) {
+      return tags.map(t => `<span class="text-xs px-2 py-0.5 bg-zinc-200 dark:bg-zinc-700 rounded-full">${t}</span>`).join(' ');
+    }
+
+    // ===== RENDER PROJECTS =====
+    function renderProjects() {
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = projectsData.map(p => `
+        <div class="project-card group relative overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 cursor-pointer reveal" onclick="window.open('${p.github}', '_blank')">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500" loading="lazy">
+          </div>
+          <div class="project-overlay absolute inset-0 bg-zinc-900/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-white">
+            <h3 class="font-serif text-xl font-semibold mb-2">${p.name}</h3>
+            <p class="text-sm text-zinc-300 mb-4 text-center">${p.description}</p>
+            <span class="text-xs px-3 py-1 bg-white/20 rounded-full">${p.lang}</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-serif text-lg font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${p.name}</h3>
+              ${p.github ? '<svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>' : ''}
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">${p.description}</p>
+            <div class="flex flex-wrap gap-2">
+              ${p.tech.map(t => `<span class="text-xs px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 rounded-full border border-zinc-200 dark:border-zinc-700">${t}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ===== RENDER PAPERS =====
+    function renderPapers() {
+      const grid = document.getElementById('papers-grid');
+      grid.innerHTML = papersData.map(p => `
+        <div class="paper-card bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 hover:border-blue-600 dark:hover:border-blue-400 transition-all duration-300 cursor-pointer reveal">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="font-serif text-lg font-semibold mb-1 leading-snug">${p.title}</h3>
+              <p class="text-xs text-zinc-500">${p.authors} · ${p.venue}</p>
+            </div>
+            ${p.rating ? `<div class="ml-4 shrink-0">${renderStars(p.rating)}</div>` : ''}
+          </div>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">${p.summary}</p>
+          <div class="mb-3">
+            <p class="text-xs font-medium text-zinc-500 mb-1">核心 ideas:</p>
+            <ul class="text-xs text-zinc-600 dark:text-zinc-400 space-y-1">
+              ${(p.key_ideas || []).map(idea => `<li class="flex items-center gap-1"><span class="text-blue-500">→</span>${idea}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex flex-wrap gap-2">${renderTags(p.tags)}</div>
+            <span class="text-xs text-zinc-400">${p.date}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ===== RENDER FEED =====
+    function renderFeed(filter = 'all') {
+      const grid = document.getElementById('feed-grid');
+      const filtered = filter === 'all' ? feedData : feedData.filter(f => f.type === filter);
+      grid.innerHTML = filtered.map(item => {
+        const isDiary = item.type === 'diary';
+        const accentClass = isDiary ? 'diary-entry' : 'blog-entry';
+        const typeLabel = isDiary ? '日记' : 'Blog';
+        const typeColor = isDiary ? 'text-blue-600 dark:text-blue-400' : 'text-emerald-600 dark:text-emerald-400';
+        return `
+          <div class="feed-card bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 hover:border-blue-600 dark:hover:border-blue-400 transition-colors cursor-pointer reveal ${accentClass}" onclick="navigateTo('blog-detail', { id: '${item.id}' })">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs font-medium px-2 py-0.5 rounded-full ${isDiary ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'}">${typeLabel}</span>
+              <span class="text-xs text-zinc-400">${item.date}</span>
+            </div>
+            <h3 class="font-serif text-lg font-semibold mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">${item.title}</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">${item.excerpt}</p>
+            <div class="flex flex-wrap gap-2">${renderTags(item.tags)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterFeed(type) {
+      currentFilter = type;
+      document.querySelectorAll('.feed-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === type);
+        btn.classList.toggle('border-blue-600', btn.dataset.filter === type);
+        btn.classList.toggle('dark:border-blue-400', btn.dataset.filter === type);
+        btn.classList.toggle('text-blue-600', btn.dataset.filter === type);
+        btn.classList.toggle('dark:text-blue-400', btn.dataset.filter === type);
+      });
+      renderFeed(type);
+    }
+
+    // ===== BLOG DETAIL =====
+    function renderBlogDetail(id) {
+      const item = feedData.find(f => f.id === id);
+      if (!item) {
+        document.getElementById('blog-detail-content').innerHTML = '<p class="text-zinc-500">文章未找到</p>';
+        return;
+      }
+      const isDiary = item.type === 'diary';
+      const container = document.getElementById('blog-detail-content');
+      container.innerHTML = `
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-xs font-medium px-3 py-1 rounded-full ${isDiary ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'}">${isDiary ? '日记' : 'Blog'}</span>
+          <span class="text-sm text-zinc-500">${item.date}</span>
+        </div>
+        <h1 class="font-serif text-3xl md:text-4xl font-bold mb-6 leading-tight">${item.title}</h1>
+        <div class="flex flex-wrap gap-2 mb-8">${renderTags(item.tags)}</div>
+        <div class="prose prose-zinc dark:prose-invert max-w-none">
+          ${item.content.split('\n').map(line => {
+            if (line.startsWith('## ')) return `<h2 class="font-serif text-2xl font-bold mt-8 mb-4">${line.slice(3)}</h2>`;
+            if (line.startsWith('### ')) return `<h3 class="font-serif text-xl font-semibold mt-6 mb-3">${line.slice(4)}</h3>`;
+            if (line.startsWith('```')) return line === '```' ? '</pre>' : '';
+            if (line.trim() === '') return '<br>';
+            if (line.startsWith('- ')) return `<li class="ml-4">${line.slice(2)}</li>`;
+            return `<p class="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">${line}</p>`;
+          }).join('\n')}
+        </div>
+      `;
+    }
+
+    // ===== INIT =====
+    async function init() {
+      try {
+        const [projectsRes, papersRes, feedRes] = await Promise.all([
+          fetch('data/projects.json'),
+          fetch('data/papers.json'),
+          fetch('data/blog.json')
+        ]);
+        projectsData = await projectsRes.json();
+        papersData = await papersRes.json();
+        feedData = await feedRes.json();
+
+        renderProjects();
+        renderPapers();
+        renderFeed();
+      } catch (e) {
+        console.warn('Data load failed, using embedded data:', e);
+        // Fallback: inline render with minimal data
+        document.getElementById('projects-grid').innerHTML = '<p class="text-zinc-500 col-span-3">项目加载失败，请检查 data/ 目录</p>';
+        document.getElementById('papers-grid').innerHTML = '<p class="text-zinc-500 col-span-2">论文数据加载失败</p>';
+        document.getElementById('feed-grid').innerHTML = '<p class="text-zinc-500 col-span-2">Feed 加载失败</p>';
+      }
+
+      if (window.location.hash) {
+        handleHashChange();
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
