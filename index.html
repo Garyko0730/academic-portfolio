@@ -54,8 +54,10 @@
 
   <!-- Navbar -->
   <nav class="fixed top-4 left-4 right-4 z-50">
-    <div class="max-w-6xl mx-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-2xl px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-serif text-xl font-semibold tracking-tight cursor-pointer">KoPang</a>
+    <div class="max-w-6xl mx-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-2xl px-4 py-3 flex items-center justify-between gap-4">
+      <a href="#" class="font-serif text-lg sm:text-xl font-semibold tracking-tight cursor-pointer shrink-0">KoPang</a>
+
+      <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-8 text-sm font-medium">
         <a href="#projects" class="hover:text-cta transition-colors cursor-pointer">Projects</a>
         <a href="#papers" class="hover:text-cta transition-colors cursor-pointer">Papers</a>
@@ -63,12 +65,31 @@
         <a href="#about" class="hover:text-cta transition-colors cursor-pointer">About</a>
         <a href="#contact" class="hover:text-cta transition-colors cursor-pointer">Contact</a>
       </div>
-      <button class="flex items-center w-14 h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full p-1 cursor-pointer transition-colors duration-300" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-toggle">
-        <div class="flex items-center justify-between w-full px-1 transition-transform duration-300" id="toggle-track">
-          <svg class="sun-icon w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          <svg class="moon-icon w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-        </div>
-      </button>
+
+      <!-- Mobile hamburger + theme toggle row -->
+      <div class="flex items-center gap-2 shrink-0">
+        <button class="md:hidden p-2 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg transition-colors cursor-pointer" onclick="toggleMobileMenu()" aria-label="Menu">
+          <svg id="hamburger-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <button class="w-10 h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full p-1 cursor-pointer transition-colors duration-300" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-toggle">
+          <div class="flex items-center justify-between w-full px-0.5" id="toggle-track">
+            <svg class="sun-icon w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="moon-icon w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu dropdown -->
+    <div id="mobile-menu" class="hidden max-w-6xl mx-auto mt-2">
+      <div class="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-2xl px-4 py-4 flex flex-col gap-3">
+        <a href="#projects" class="text-sm font-medium hover:text-cta transition-colors cursor-pointer" onclick="closeMobileMenu()">Projects</a>
+        <a href="#papers" class="text-sm font-medium hover:text-cta transition-colors cursor-pointer" onclick="closeMobileMenu()">Papers</a>
+        <a href="#feed" class="text-sm font-medium hover:text-cta transition-colors cursor-pointer" onclick="closeMobileMenu()">Feed</a>
+        <a href="#about" class="text-sm font-medium hover:text-cta transition-colors cursor-pointer" onclick="closeMobileMenu()">About</a>
+        <a href="#contact" class="text-sm font-medium hover:text-cta transition-colors cursor-pointer" onclick="closeMobileMenu()">Contact</a>
+      </div>
     </div>
   </nav>
 
@@ -82,8 +103,8 @@
       <section class="min-h-screen flex items-center justify-center px-6 pt-24">
         <div class="max-w-3xl text-center reveal">
           <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-4 tracking-widest uppercase">Machine Vision · Researcher</p>
-          <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">KoPang</h1>
-          <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
+          <h1 class="font-serif text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">KoPang</h1>
+          <p class="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
             暨南大学研究生，研究方向为机器视觉与视觉基础模型。当前聚焦于目标检测、图像分割及深度学习在工业检测中的应用。
           </p>
           <div class="flex items-center justify-center gap-4 flex-wrap">
@@ -100,7 +121,7 @@
       </section>
 
       <!-- Projects -->
-      <section id="projects" class="px-6 py-24">
+      <section id="projects" class="px-6 py-24 scroll-my-20">
         <div class="max-w-6xl mx-auto">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold mb-3">Projects</h2>
@@ -113,7 +134,7 @@
       </section>
 
       <!-- Papers -->
-      <section id="papers" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+      <section id="papers" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50 scroll-my-20">
         <div class="max-w-6xl mx-auto">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold mb-3">Paper Reading</h2>
@@ -126,7 +147,7 @@
       </section>
 
       <!-- Feed (Blog + Diary) -->
-      <section id="feed" class="px-6 py-24">
+      <section id="feed" class="px-6 py-24 scroll-my-20">
         <div class="max-w-6xl mx-auto">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold mb-3">Feed</h2>
@@ -147,11 +168,11 @@
       </section>
 
       <!-- About -->
-      <section id="about" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+      <section id="about" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50 scroll-my-20">
         <div class="max-w-6xl mx-auto">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="reveal">
-              <div class="aspect-square rounded-3xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 max-w-md">
+              <div class="aspect-square rounded-3xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 max-w-[200px] sm:max-w-md">
                 <img src="https://picsum.photos/seed/kopang/800/800" alt="KoPang" class="w-full h-full object-cover" loading="lazy">
               </div>
             </div>
@@ -184,7 +205,7 @@
       </section>
 
       <!-- Contact -->
-      <section id="contact" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50">
+      <section id="contact" class="px-6 py-24 bg-zinc-100/50 dark:bg-zinc-900/50 scroll-my-20">
         <div class="max-w-2xl mx-auto text-center reveal">
           <h2 class="font-serif text-4xl font-bold mb-4">Contact</h2>
           <p class="text-zinc-600 dark:text-zinc-400 mb-12">有问题或合作意向，欢迎联系。</p>
@@ -245,6 +266,25 @@
     // ===== THEME =====
     function toggleTheme() {
       document.documentElement.classList.toggle('dark');
+    }
+
+    // ===== MOBILE MENU =====
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const hamburger = document.getElementById('hamburger-icon');
+      const close = document.getElementById('close-icon');
+      menu.classList.toggle('hidden');
+      hamburger.classList.toggle('hidden');
+      close.classList.toggle('hidden');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const hamburger = document.getElementById('hamburger-icon');
+      const close = document.getElementById('close-icon');
+      menu.classList.add('hidden');
+      hamburger.classList.remove('hidden');
+      close.classList.add('hidden');
     }
 
     // ===== SCROLL REVEAL =====
