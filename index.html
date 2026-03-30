@@ -450,6 +450,7 @@
         btn.classList.toggle('dark:text-blue-400', btn.dataset.filter === type);
       });
       renderFeed(type);
+      renderRevealElements();
     }
 
     // ===== BLOG DETAIL =====
@@ -496,6 +497,7 @@
         renderProjects();
         renderPapers();
         renderFeed();
+        renderRevealElements();
       } catch (e) {
         console.warn('Data load failed, using embedded data:', e);
         // Fallback: inline render with minimal data
