@@ -264,7 +264,9 @@
       if (page === 'home') {
         homePage.classList.remove('hidden');
         detailPage.classList.add('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (!params?.skipScroll) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         history.pushState(null, '', window.location.pathname);
         renderRevealElements();
       } else if (page === 'blog-detail') {
@@ -281,6 +283,9 @@
       if (hash && hash.startsWith('blog-')) {
         const id = hash.replace('blog-', '');
         navigateTo('blog-detail', { id });
+      } else if (hash) {
+        // Section anchor — navigate to home without overriding native scroll
+        navigateTo('home', { skipScroll: true });
       } else {
         navigateTo('home');
       }
