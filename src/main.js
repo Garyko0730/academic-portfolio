@@ -1,6 +1,5 @@
 import './styles/main.css';
 
-import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
 
 import siteData from './data/site.json';
@@ -29,10 +28,61 @@ const markdown = new MarkdownIt({
 
 let revealObserver;
 
+function parseFrontmatterValue(value) {
+  const trimmed = value.trim();
+
+  if (trimmed === 'true') return true;
+  if (trimmed === 'false') return false;
+  if (trimmed === 'null') return null;
+
+  if (
+    (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+    (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+    (trimmed.startsWith('"') && trimmed.endsWith('"'))
+  ) {
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      return trimmed;
+    }
+  }
+
+  return trimmed;
+}
+
+function parseFrontmatter(raw) {
+  const normalized = raw.replace(/\r\n/g, '\n');
+
+  if (!normalized.startsWith('---\n')) {
+    return { data: {}, content: normalized };
+  }
+
+  const endIndex = normalized.indexOf('\n---\n', 4);
+  if (endIndex === -1) {
+    return { data: {}, content: normalized };
+  }
+
+  const frontmatterBlock = normalized.slice(4, endIndex);
+  const content = normalized.slice(endIndex + 5);
+  const data = {};
+
+  frontmatterBlock.split('\n').forEach((line) => {
+    if (!line.trim()) return;
+    const separatorIndex = line.indexOf(':');
+    if (separatorIndex === -1) return;
+
+    const key = line.slice(0, separatorIndex).trim();
+    const value = line.slice(separatorIndex + 1);
+    data[key] = parseFrontmatterValue(value);
+  });
+
+  return { data, content };
+}
+
 function parseMarkdownCollection(modules) {
   return Object.entries(modules).map(([path, raw]) => {
     const slug = path.split('/').pop().replace(/\.md$/, '');
-    const { data, content } = matter(raw);
+    const { data, content } = parseFrontmatter(raw);
 
     return {
       slug,
