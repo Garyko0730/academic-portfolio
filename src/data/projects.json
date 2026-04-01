@@ -1,0 +1,47 @@
+[
+  {
+    "id": "printing-defect-detection",
+    "title": "印刷品瑕疵检测系统",
+    "subtitle": "YOLOv8-based real-time industrial inspection",
+    "summary": "基于 YOLOv8 的实时工业检测系统，覆盖相机采集、模型推理与桌面端展示链路。",
+    "cover": null,
+    "tags": ["YOLOv8", "PyTorch", "Industrial Vision"],
+    "tech": ["YOLOv8", "PyTorch", "WPF", "WebSocket", "GigE Vision"],
+    "featured": true,
+    "status": "completed",
+    "role": "算法开发 / 系统集成",
+    "github": "https://github.com/Garyko0730/printing-defect-detection",
+    "demo": null,
+    "date": "2026-03"
+  },
+  {
+    "id": "star-office-ui",
+    "title": "Star Office UI",
+    "subtitle": "Pixel-style multi-agent status board",
+    "summary": "像素风格的 AI Agent 办公室状态看板，强调多 Agent 可视化与状态同步。",
+    "cover": null,
+    "tags": ["Phaser 3", "Flask", "Multi-Agent UI"],
+    "tech": ["Phaser 3", "Flask", "JavaScript"],
+    "featured": true,
+    "status": "active",
+    "role": "前端交互 / 状态同步设计",
+    "github": "https://github.com/Garyko0730/Star-Office-UI-Ko",
+    "demo": null,
+    "date": "2026-03"
+  },
+  {
+    "id": "pixel-office",
+    "title": "Pixel Office",
+    "subtitle": "OpenClaw multi-agent office visualization",
+    "summary": "展示 OpenClaw 多 Agent 状态的像素办公室网页 UI，聚焦状态可视化与轻量部署。",
+    "cover": null,
+    "tags": ["OpenClaw", "Phaser 3", "Visualization"],
+    "tech": ["Phaser 3", "Flask", "Python"],
+    "featured": true,
+    "status": "active",
+    "role": "产品设计 / 可视化实现",
+    "github": "https://github.com/Garyko0730/pixel-office",
+    "demo": null,
+    "date": "2026-03"
+  }
+]

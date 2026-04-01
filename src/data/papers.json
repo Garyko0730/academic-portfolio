@@ -1,0 +1,58 @@
+[
+  {
+    "id": "yolo-v8",
+    "title": "YOLOv8: Advances in Real-Time Object Detection",
+    "authors": "Jocher et al.",
+    "venue": "Ultralytics, 2023",
+    "year": 2023,
+    "dateRead": "2026-03-10",
+    "tags": ["Object Detection", "YOLO", "Real-time"],
+    "summary": "YOLOv8 是 Ultralytics 发布的新一代目标检测模型，在速度与精度之间取得了更好的平衡，适合工程落地场景。",
+    "paperUrl": "https://docs.ultralytics.com/",
+    "rating": 4,
+    "keyIdeas": ["解耦检测头", "Anchor-free 设计", "适合工业视觉快速验证"],
+    "myTake": "更适合作为工程基线，而不是纯学术 novelty。"
+  },
+  {
+    "id": "sam",
+    "title": "Segment Anything Model (SAM)",
+    "authors": "Kirillov et al.",
+    "venue": "ICCV 2023",
+    "year": 2023,
+    "dateRead": "2026-02-20",
+    "tags": ["Segmentation", "Foundation Model", "Prompt-based"],
+    "summary": "SAM 是 prompt-based 图像分割基础模型，通过超大规模数据集 SA-1B 提供强泛化能力。",
+    "paperUrl": "https://segment-anything.com/",
+    "rating": 5,
+    "keyIdeas": ["Prompt-based segmentation", "ViT image encoder", "大规模数据驱动泛化"],
+    "myTake": "对理解视觉基础模型范式转变很关键。"
+  },
+  {
+    "id": "dino",
+    "title": "DINO: DETR with Improved Training for Open-vocabulary Object Detection",
+    "authors": "Li et al.",
+    "venue": "ICCV 2023",
+    "year": 2023,
+    "dateRead": "2026-02-05",
+    "tags": ["Open-vocabulary", "Detection", "Transformer"],
+    "summary": "DINO 将开放词汇目标检测与更稳健的训练策略结合，适合理解检测模型如何吸收多模态语义能力。",
+    "paperUrl": "https://github.com/IDEA-Research/DINO",
+    "rating": 4,
+    "keyIdeas": ["开放词汇检测", "文本-图像对比", "Transformer 检测训练增强"],
+    "myTake": "更偏研究取向，但对未来通用视觉检测很有参考价值。"
+  },
+  {
+    "id": "rt-detr",
+    "title": "RT-DETR: Real-Time Detector with Transformer",
+    "authors": "Zhou et al.",
+    "venue": "Baidu, 2023",
+    "year": 2023,
+    "dateRead": "2026-01-28",
+    "tags": ["Real-time", "Transformer", "Detection"],
+    "summary": "RT-DETR 证明 Transformer 检测器也可以进入实时范围，对比 YOLO 路线有很强启发性。",
+    "paperUrl": "https://github.com/lyuwenyu/RT-DETR",
+    "rating": 4,
+    "keyIdeas": ["实时 Transformer 检测", "混合编码器", "速度与精度共同优化"],
+    "myTake": "适合用来理解实时检测范式不再只属于 CNN/YOLO。"
+  }
+]

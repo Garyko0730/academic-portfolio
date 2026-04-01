@@ -1,0 +1,30 @@
+{
+  "title": "KoPang · Academic Portfolio",
+  "description": "暨南大学研究生，研究方向为机器视觉与视觉基础模型，聚焦目标检测、图像分割与工业视觉应用。",
+  "author": "KoPang",
+  "email": "kopang0730@stu2021.jnu.edu.cn",
+  "github": "https://github.com/Garyko0730",
+  "linkedin": null,
+  "cv": null,
+  "avatar": null,
+  "nav": [
+    { "label": "Projects", "path": "/projects" },
+    { "label": "Papers", "path": "/papers" },
+    { "label": "Blog", "path": "/blog" },
+    { "label": "About", "path": "/about" }
+  ],
+  "researchFocus": [
+    "目标检测与图像分割",
+    "视觉基础模型与工业检测应用",
+    "AI Agent 驱动的工程自动化"
+  ],
+  "about": {
+    "education": "暨南大学｜研究生｜机器视觉与视觉基础模型",
+    "bio": [
+      "我是 KoPang，当前研究方向为机器视觉与视觉基础模型，关注目标检测、图像分割、视频理解及深度学习在工业场景中的实际落地。",
+      "过去的项目实践集中在工业视觉检测、实时推理链路、Agent 可视化与工程自动化。",
+      "我希望把研究训练和工程交付结合起来，做出既能跑通 demo、也能持续维护的真实系统。"
+    ],
+    "skills": ["Python", "PyTorch", "OpenCV", "YOLOv8", "ONNX", "WPF", "Flask", "CUDA"]
+  }
+}
