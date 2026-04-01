@@ -84,7 +84,13 @@ npm run preview
 - `paperUrl`
 
 ### 4. 新增 Blog
-在 `content/blog/` 下新建 markdown 文件：
+推荐直接复制模板：`docs/blog-template.md`
+
+然后在 `content/blog/` 下新建 markdown 文件，例如：
+- `content/blog/yolo-training-guide.md`
+- 路由为 `#/blog/yolo-training-guide`
+
+最小格式如下：
 
 ```md
 ---
@@ -97,9 +103,7 @@ excerpt: "一句话摘要"
 ## 正文
 ```
 
-文件名会作为 slug，例如：
-- `content/blog/yolo-training-guide.md`
-- 路由为 `#/blog/yolo-training-guide`
+注意：**不要**把模板文件直接放在 `content/blog/` 目录里，否则它会被自动收录到 blog 列表。
 
 ## 当前已知 TODO
 
