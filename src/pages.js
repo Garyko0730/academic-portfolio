@@ -182,7 +182,7 @@ function renderHome() {
         <div class="mx-auto max-w-6xl">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold">Featured Projects</h2>
-            <p class="mt-3 text-zinc-600 dark:text-zinc-400">挑 3 个最能代表研究与工程能力的项目，先讲清楚价值，再展示实现。</p>
+            <p class="mt-3 text-zinc-600 dark:text-zinc-400">精选代表性项目，展示从问题定义到成果验证的完整工程实践。</p>
           </div>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             ${featuredProjects.map(renderProjectCard).join('')}
@@ -194,7 +194,7 @@ function renderHome() {
         <div class="mx-auto max-w-6xl">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold">Paper Reading</h2>
-            <p class="mt-3 text-zinc-600 dark:text-zinc-400">聚焦目标检测、分割与视觉基础模型，保留我自己的评注，而不只是摘录摘要。</p>
+            <p class="mt-3 text-zinc-600 dark:text-zinc-400">聚焦目标检测、分割与视觉基础模型，记录结构化阅读笔记与个人评注。</p>
           </div>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             ${selectedPapers.map(renderPaperCard).join('')}
@@ -206,7 +206,7 @@ function renderHome() {
         <div class="mx-auto max-w-6xl">
           <div class="mb-12 reveal">
             <h2 class="font-serif text-4xl font-bold">Latest Writing</h2>
-            <p class="mt-3 text-zinc-600 dark:text-zinc-400">只保留可以公开分享的技术内容，不让 diary 稀释正式感。</p>
+            <p class="mt-3 text-zinc-600 dark:text-zinc-400">技术实践与研究方法论沉淀，筛选可公开分享的内容。</p>
           </div>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             ${latestPosts.map(renderBlogCard).join('')}
@@ -226,7 +226,7 @@ function renderProjectsPage() {
       <div class="mx-auto max-w-6xl">
         <div class="mb-12 reveal">
           <h1 class="font-serif text-4xl font-bold md:text-5xl">Projects</h1>
-          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">v2 只收录最能代表能力的项目，强调问题、角色、结果与可验证链接。</p>
+          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">收录全部工程项目，每项包含问题背景、角色、技术方案与可验证链接。</p>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           ${store.projects.map(renderProjectCard).join('')}
@@ -290,7 +290,7 @@ function renderPapersPage() {
       <div class="mx-auto max-w-6xl">
         <div class="mb-12 reveal">
           <h1 class="font-serif text-4xl font-bold md:text-5xl">Paper Reading</h1>
-          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">保留统一结构：问题、方法、关键 idea、我的判断。</p>
+          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">统一结构：问题、方法、关键 idea 与个人评注。</p>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           ${store.papers.map(renderPaperCard).join('')}
@@ -308,7 +308,7 @@ function renderBlogPage() {
       <div class="mx-auto max-w-6xl">
         <div class="mb-12 reveal">
           <h1 class="font-serif text-4xl font-bold md:text-5xl">Blog</h1>
-          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">只保留可公开分享的技术文章与研究方法论。</p>
+          <p class="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">技术文章与研究方法论沉淀。</p>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           ${store.blogPosts.map(renderBlogCard).join('')}
@@ -403,7 +403,7 @@ function renderNotFound(message = 'Page not found') {
       <div class="max-w-xl text-center">
         <p class="text-sm uppercase tracking-[0.25em] text-zinc-500">404</p>
         <h1 class="mt-4 font-serif text-4xl font-bold">${message}</h1>
-        <p class="mt-4 text-zinc-600 dark:text-zinc-400">当前临时骨架只实现了 portfolio 主流程；你可以先回首页继续看结构。</p>
+        <p class="mt-4 text-zinc-600 dark:text-zinc-400">页面未找到，请返回首页继续浏览。</p>
         <button onclick="window.navigateTo('/')" class="mt-8 rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700">Back Home</button>
       </div>
     </main>
