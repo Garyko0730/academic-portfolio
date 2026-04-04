@@ -140,3 +140,82 @@ test('createSitePages generates static routes for list and detail pages', () => 
     /Project Body/
   );
 });
+
+test('createSitePages uses professional placeholder copy for unavailable profile assets', () => {
+  const pages = createSitePages({
+    store: {
+      site: {
+        title: 'KoPang · Academic Portfolio',
+        author: 'KoPang',
+        description: 'Portfolio placeholder',
+        siteUrl: 'https://example.com/',
+        github: 'https://github.com/Garyko0730',
+        email: 'kopang@example.com',
+        linkedin: null,
+        cv: null,
+        nav: [],
+        about: {
+          education: 'JNU',
+          bio: ['Intro paragraph'],
+          skills: ['Python'],
+        },
+        availability: {
+          cvLabel: 'Available on request',
+          linkedinLabel: 'Not public yet',
+        },
+      },
+      projects: [],
+      papers: [],
+      blogPosts: [],
+      projectContent: {},
+    },
+    assetPaths: {
+      css: '/academic-portfolio/assets/app.css',
+      js: '/academic-portfolio/assets/app.js',
+    },
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.match(aboutPage.html, /Available on request/);
+  assert.match(aboutPage.html, /Not public yet/);
+  assert.doesNotMatch(aboutPage.html, /TODO/);
+});
+
+test('createSitePages falls back to professional availability copy when availability data is missing', () => {
+  const pages = createSitePages({
+    store: {
+      site: {
+        title: 'KoPang · Academic Portfolio',
+        author: 'KoPang',
+        description: 'Portfolio placeholder',
+        siteUrl: 'https://example.com/',
+        github: 'https://github.com/Garyko0730',
+        email: 'kopang@example.com',
+        linkedin: null,
+        cv: null,
+        nav: [],
+        about: {
+          education: 'JNU',
+          bio: ['Intro paragraph'],
+          skills: ['Python'],
+        },
+        availability: null,
+      },
+      projects: [],
+      papers: [],
+      blogPosts: [],
+      projectContent: {},
+    },
+    assetPaths: {
+      css: '/academic-portfolio/assets/app.css',
+      js: '/academic-portfolio/assets/app.js',
+    },
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.match(aboutPage.html, /Available on request/);
+  assert.match(aboutPage.html, /Not public yet/);
+  assert.doesNotMatch(aboutPage.html, /TODO/);
+});

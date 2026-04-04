@@ -370,6 +370,9 @@ export function renderBlogDetailPage({
 
 export function renderAboutPage({ store, currentPath, buildHref }) {
   const { about, avatar, email, github, linkedin, cv } = store.site;
+  const availability = store.site?.availability ?? {};
+  const linkedinPlaceholder = escapeHtml(availability.linkedinLabel || 'Not public yet');
+  const cvPlaceholder = escapeHtml(availability.cvLabel || 'Available on request');
 
   return `
     ${renderNavbar({ site: store.site, currentPath, buildHref })}
@@ -406,8 +409,8 @@ export function renderAboutPage({ store, currentPath, buildHref }) {
                 <p class="text-sm font-medium">GitHub</p>
                 <p class="mt-2 text-sm text-zinc-500">@Garyko0730</p>
               </a>
-              ${linkedin ? `<a href="${escapeHtml(linkedin)}" target="_blank" rel="noreferrer" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400"><p class="text-sm font-medium">LinkedIn</p><p class="mt-2 text-sm text-zinc-500">Open profile ↗</p></a>` : `<div class="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/40"><p class="text-sm font-medium">LinkedIn</p><p class="mt-2 text-sm">TODO: 补真实链接</p></div>`}
-              ${cv ? `<a href="${escapeHtml(cv)}" target="_blank" rel="noreferrer" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400"><p class="text-sm font-medium">CV</p><p class="mt-2 text-sm text-zinc-500">Open PDF ↗</p></a>` : `<div class="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/40"><p class="text-sm font-medium">CV</p><p class="mt-2 text-sm">TODO: 补正式 PDF</p></div>`}
+              ${linkedin ? `<a href="${escapeHtml(linkedin)}" target="_blank" rel="noreferrer" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400"><p class="text-sm font-medium">LinkedIn</p><p class="mt-2 text-sm text-zinc-500">Open profile ↗</p></a>` : `<div class="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/40"><p class="text-sm font-medium">LinkedIn</p><p class="mt-2 text-sm">${linkedinPlaceholder}</p></div>`}
+              ${cv ? `<a href="${escapeHtml(cv)}" target="_blank" rel="noreferrer" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400"><p class="text-sm font-medium">CV</p><p class="mt-2 text-sm text-zinc-500">Open PDF ↗</p></a>` : `<div class="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/40"><p class="text-sm font-medium">CV</p><p class="mt-2 text-sm">${cvPlaceholder}</p></div>`}
             </div>
           </div>
         </div>

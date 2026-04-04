@@ -8,6 +8,10 @@
   "linkedin": null,
   "cv": null,
   "avatar": null,
+  "availability": {
+    "cvLabel": "Available on request",
+    "linkedinLabel": "Not public yet"
+  },
   "nav": [
     { "label": "Projects", "path": "/projects/" },
     { "label": "Papers", "path": "/papers/" },
