@@ -212,6 +212,28 @@ function renderHero(site, buildHref) {
   `;
 }
 
+function renderAvailabilitySection(site) {
+  const email = (site.email || '').trim();
+  const safeEmail = escapeHtml(email);
+  const safeHomeAvailabilityNote = escapeHtml(
+    site.availability?.homepageNote || 'CV available on request'
+  );
+  const emailCta = email
+    ? `<a href="mailto:${safeEmail}" class="availability-panel__cta">Email me</a>`
+    : '';
+
+  return `
+    <section class="availability-panel px-6 py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="availability-panel__inner reveal">
+          <p class="availability-panel__note">${safeHomeAvailabilityNote}</p>
+          ${emailCta}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 export function renderHomePage({ store, currentPath, buildHref }) {
   const featuredProjects = store.projects.filter((project) => project.featured);
   const latestPosts = store.blogPosts.slice(0, 3);
@@ -257,6 +279,8 @@ export function renderHomePage({ store, currentPath, buildHref }) {
           </div>
         </div>
       </section>
+
+      ${renderAvailabilitySection(store.site)}
 
       ${renderFooter(store.site)}
     </main>
@@ -392,6 +416,8 @@ export function renderBlogDetailPage({
 export function renderAboutPage({ store, currentPath, buildHref }) {
   const { about, avatar, email, github, linkedin, cv } = store.site;
   const availability = store.site?.availability ?? {};
+  const trimmedEmail = (email || '').trim();
+  const emailPlaceholder = escapeHtml(availability.emailLabel || 'Available on request');
   const linkedinPlaceholder = escapeHtml(availability.linkedinLabel || 'Not public yet');
   const cvPlaceholder = escapeHtml(availability.cvLabel || 'Available on request');
 
@@ -422,10 +448,9 @@ export function renderAboutPage({ store, currentPath, buildHref }) {
             </div>
 
             <div class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              <a href="mailto:${escapeHtml(email)}" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400">
-                <p class="text-sm font-medium">Email</p>
-                <p class="mt-2 text-sm text-zinc-500">${escapeHtml(email)}</p>
-              </a>
+              ${trimmedEmail
+                ? `<a href="mailto:${escapeHtml(trimmedEmail)}" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400"><p class="text-sm font-medium">Email</p><p class="mt-2 text-sm text-zinc-500">${escapeHtml(trimmedEmail)}</p></a>`
+                : `<div class="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900/40"><p class="text-sm font-medium">Email</p><p class="mt-2 text-sm">${emailPlaceholder}</p></div>`}
               <a href="${escapeHtml(github)}" target="_blank" rel="noreferrer" class="rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-blue-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-400">
                 <p class="text-sm font-medium">GitHub</p>
                 <p class="mt-2 text-sm text-zinc-500">@Garyko0730</p>

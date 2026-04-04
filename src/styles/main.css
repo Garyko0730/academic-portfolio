@@ -267,3 +267,58 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
+
+.availability-panel {
+  border-radius: 2rem;
+  border: 1px solid rgba(12, 74, 110, 0.2);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(14, 165, 233, 0.08));
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+}
+
+.dark .availability-panel {
+  border-color: rgba(148, 163, 184, 0.4);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(15, 23, 42, 0.6));
+  box-shadow: 0 30px 60px rgba(2, 6, 23, 0.7);
+}
+
+.availability-panel__inner {
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+.availability-panel__note {
+  margin: 0;
+  color: rgba(15, 23, 42, 0.8);
+}
+
+.dark .availability-panel__note {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.availability-panel__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.75rem;
+  border-radius: 999px;
+  background: #1d4ed8;
+  color: white;
+  font-weight: 600;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.availability-panel__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.5);
+}
+
+.availability-panel__cta:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.6);
+  outline-offset: 2px;
+}

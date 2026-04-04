@@ -50,6 +50,35 @@ function createSampleStoreWithoutAvatar() {
   };
 }
 
+function createSampleStoreWithAvailability() {
+  return {
+    site: {
+      title: 'KoPang · Academic Portfolio',
+      author: 'KoPang',
+      description: 'Research and engineering placeholder',
+      siteUrl: 'https://example.com/',
+      github: 'https://github.com/Garyko0730',
+      email: 'kopang@example.com',
+      nav: [],
+      researchFocus: ['Applied Vision', 'Reliable Autonomy'],
+      about: {
+        education: 'JNU',
+        bio: ['Intro paragraph'],
+        skills: ['Python'],
+      },
+      availability: {
+        cvLabel: 'Portfolio CV card copy',
+        homepageNote: 'CV available on request',
+        linkedinLabel: 'Not public yet',
+      },
+    },
+    projects: [],
+    papers: [],
+    blogPosts: [],
+    projectContent: {},
+  };
+}
+
 function createSampleStoreWithProject() {
   return {
     site: {
@@ -271,6 +300,44 @@ test('createSitePages uses professional placeholder copy for unavailable profile
   assert.doesNotMatch(aboutPage.html, /TODO/);
 });
 
+test('about page omits the mailto link when email is blank', () => {
+  const pages = createSitePages({
+    store: {
+      site: {
+        title: 'KoPang · Academic Portfolio',
+        author: 'KoPang',
+        description: 'Portfolio placeholder',
+        siteUrl: 'https://example.com/',
+        github: 'https://github.com/Garyko0730',
+        email: '   ',
+        linkedin: null,
+        cv: null,
+        nav: [],
+        about: {
+          education: 'JNU',
+          bio: ['Intro paragraph'],
+          skills: ['Python'],
+        },
+        availability: {
+          cvLabel: 'Available on request',
+          linkedinLabel: 'Not public yet',
+        },
+      },
+      projects: [],
+      papers: [],
+      blogPosts: [],
+      projectContent: {},
+    },
+    assetPaths: sampleAssetPaths,
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.match(aboutPage.html, /<p class="text-sm font-medium">Email<\/p>/);
+  assert.match(aboutPage.html, /Available on request/);
+  assert.doesNotMatch(aboutPage.html, /href="mailto:/);
+});
+
 test('about page renders a structured profile placeholder module when avatar is missing', () => {
   const pages = createSitePages({
     store: createSampleStoreWithoutAvatar(),
@@ -383,6 +450,39 @@ test('project pages render a structured case-study placeholder cover when screen
   assert.match(projectsListPage.html, /data-case-study-placeholder="card"/);
   assert.match(projectsListPage.html, /case-study-cover--card/);
   assert.match(mainCss, /\.case-study-cover--detail\s*\{[^}]*min-height:\s*24rem;/s);
+});
+
+test('home page includes a contact-oriented availability section', () => {
+  const pages = createSitePages({
+    store: createSampleStoreWithAvailability(),
+    assetPaths: sampleAssetPaths,
+  });
+
+  const homePage = pages.find((page) => page.routePath === '/');
+
+  assert.match(homePage.html, /href="mailto:kopang@example\.com"/);
+  assert.match(homePage.html, />Email me</);
+  assert.match(homePage.html, /CV available on request/);
+  assert.doesNotMatch(homePage.html, /Portfolio CV card copy/);
+});
+
+test('home page availability section omits the CTA when email is missing', () => {
+  const pages = createSitePages({
+    store: {
+      ...createSampleStoreWithAvailability(),
+      site: {
+        ...createSampleStoreWithAvailability().site,
+        email: '   ',
+      },
+    },
+    assetPaths: sampleAssetPaths,
+  });
+
+  const homePage = pages.find((page) => page.routePath === '/');
+
+  assert.match(homePage.html, /CV available on request/);
+  assert.doesNotMatch(homePage.html, /href="mailto:/);
+  assert.doesNotMatch(homePage.html, />Email me</);
 });
 
 test('createSitePages falls back to professional availability copy when availability data is missing', () => {
