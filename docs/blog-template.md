@@ -1,18 +1,18 @@
-# Blog Template
-
-> 用法：复制本文件内容，新建到 `content/blog/<your-slug>.md`
-> 
-> 例：`content/blog/industrial-inspection-notes.md`
-> 
-> 注意：**不要**把模板文件直接放进 `content/blog/`，因为该目录下的 `.md` 会自动出现在网站 Blog 列表中。
-
----
-
 title: "你的文章标题"
 date: "2026-04-02"
 tags: ["Research", "Machine Vision", "Engineering"]
 excerpt: "这里写一段 1 句话摘要，会显示在 blog 列表卡片上。"
 ---
+
+# Blog Template
+
+> 用法：复制下面的 frontmatter + 正文结构，新建到 `content/blog/<your-slug>.md`
+>
+> 例：`content/blog/industrial-inspection-notes.md`
+>
+> 注意：frontmatter 必须从文件第一行开始，不能在前面插说明文字，否则不会被正确识别。
+>
+> 注意：**不要**把模板文件直接放进 `content/blog/`，因为该目录下的 `.md` 会自动出现在网站 Blog 列表中。
 
 ## 这篇文章解决什么问题
 

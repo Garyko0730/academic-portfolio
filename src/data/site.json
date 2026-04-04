@@ -1,5 +1,6 @@
 {
   "title": "KoPang · Academic Portfolio",
+  "siteUrl": "https://garyko0730.github.io/academic-portfolio/",
   "description": "暨南大学研究生，专注机器视觉与视觉基础模型研究，致力于目标检测、图像分割及工业视觉应用的实际落地。",
   "author": "KoPang",
   "email": "kopang0730@stu2021.jnu.edu.cn",
@@ -8,10 +9,10 @@
   "cv": null,
   "avatar": null,
   "nav": [
-    { "label": "Projects", "path": "/projects" },
-    { "label": "Papers", "path": "/papers" },
-    { "label": "Blog", "path": "/blog" },
-    { "label": "About", "path": "/about" }
+    { "label": "Projects", "path": "/projects/" },
+    { "label": "Papers", "path": "/papers/" },
+    { "label": "Blog", "path": "/blog/" },
+    { "label": "About", "path": "/about/" }
   ],
   "researchFocus": [
     "目标检测与图像分割",
