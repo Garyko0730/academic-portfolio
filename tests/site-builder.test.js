@@ -8,6 +8,45 @@ import {
   renderHtmlDocument,
 } from '../src/lib/site-builder.js';
 
+const sampleAssetPaths = {
+  css: '/academic-portfolio/assets/app.css',
+  js: '/academic-portfolio/assets/app.js',
+};
+
+function createSampleStoreWithoutAvatar() {
+  return {
+    site: {
+      title: 'KoPang · Academic Portfolio',
+      author: 'Ada Lovelace',
+      description: 'Portfolio placeholder',
+      siteUrl: 'https://example.com/',
+      github: 'https://github.com/Garyko0730',
+      email: 'kopang@example.com',
+      linkedin: null,
+      cv: null,
+      nav: [],
+      researchFocus: [
+        'Computer Vision Systems',
+        'Reliable Automation Workflows',
+      ],
+      about: {
+        education: 'JNU',
+        bio: ['Intro paragraph'],
+        skills: ['Python'],
+      },
+      availability: {
+        cvLabel: 'Available on request',
+        linkedinLabel: 'Not public yet',
+      },
+      avatar: null,
+    },
+    projects: [],
+    papers: [],
+    blogPosts: [],
+    projectContent: {},
+  };
+}
+
 test('buildCanonicalUrl joins siteUrl and route path correctly', () => {
   assert.equal(
     buildCanonicalUrl('https://garyko0730.github.io/academic-portfolio/', '/blog/post-a/'),
@@ -180,6 +219,99 @@ test('createSitePages uses professional placeholder copy for unavailable profile
   assert.match(aboutPage.html, /Available on request/);
   assert.match(aboutPage.html, /Not public yet/);
   assert.doesNotMatch(aboutPage.html, /TODO/);
+});
+
+test('about page renders a structured profile placeholder module when avatar is missing', () => {
+  const pages = createSitePages({
+    store: createSampleStoreWithoutAvatar(),
+    assetPaths: sampleAssetPaths,
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.doesNotMatch(aboutPage.html, /Profile placeholder/);
+  assert.match(aboutPage.html, /profile-placeholder__initial">A</);
+  assert.match(aboutPage.html, /Computer Vision Systems/);
+  assert.match(aboutPage.html, /Reliable Automation Workflows/);
+});
+
+test('about page placeholder falls back to site description, education, and default initial', () => {
+  const pages = createSitePages({
+    store: {
+      site: {
+        title: 'Fallback Portfolio',
+        author: '   ',
+        description: 'Applied AI Portfolio',
+        siteUrl: 'https://example.com/',
+        github: 'https://github.com/Garyko0730',
+        email: 'kopang@example.com',
+        linkedin: null,
+        cv: null,
+        nav: [],
+        researchFocus: [],
+        about: {
+          education: 'Graduate Researcher',
+          bio: ['Intro paragraph'],
+          skills: ['Python'],
+        },
+        availability: {
+          cvLabel: 'Available on request',
+          linkedinLabel: 'Not public yet',
+        },
+        avatar: null,
+      },
+      projects: [],
+      papers: [],
+      blogPosts: [],
+      projectContent: {},
+    },
+    assetPaths: sampleAssetPaths,
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.match(aboutPage.html, /profile-placeholder__initial">K</);
+  assert.match(aboutPage.html, /Applied AI Portfolio/);
+  assert.match(aboutPage.html, /Graduate Researcher/);
+});
+
+test('about page placeholder falls back to education when only one research focus item exists', () => {
+  const pages = createSitePages({
+    store: {
+      site: {
+        title: 'Single Focus Portfolio',
+        author: 'Grace Hopper',
+        description: 'Systems portfolio',
+        siteUrl: 'https://example.com/',
+        github: 'https://github.com/Garyko0730',
+        email: 'kopang@example.com',
+        linkedin: null,
+        cv: null,
+        nav: [],
+        researchFocus: ['Vision Platforms'],
+        about: {
+          education: 'Computing Research Lead',
+          bio: ['Intro paragraph'],
+          skills: ['Python'],
+        },
+        availability: {
+          cvLabel: 'Available on request',
+          linkedinLabel: 'Not public yet',
+        },
+        avatar: null,
+      },
+      projects: [],
+      papers: [],
+      blogPosts: [],
+      projectContent: {},
+    },
+    assetPaths: sampleAssetPaths,
+  });
+
+  const aboutPage = pages.find((page) => page.routePath === '/about/');
+
+  assert.match(aboutPage.html, /Vision Platforms/);
+  assert.match(aboutPage.html, /Computing Research Lead/);
 });
 
 test('createSitePages falls back to professional availability copy when availability data is missing', () => {

@@ -16,6 +16,19 @@ function placeholderVisual(title, subtitle = '') {
   `;
 }
 
+function renderProfilePlaceholder(site) {
+  const authorInitial = escapeHtml((site.author || '').trim().slice(0, 1) || 'K');
+  const [profileTitle, profileMeta] = site.researchFocus || [];
+  const fallbackMeta = site.about?.education || site.description || '';
+  return `
+    <div class="profile-placeholder">
+      <div class="profile-placeholder__initial">${authorInitial}</div>
+      <p class="profile-placeholder__title">${escapeHtml(profileTitle || site.description || 'Academic Portfolio')}</p>
+      <p class="profile-placeholder__meta">${escapeHtml(profileMeta || fallbackMeta)}</p>
+    </div>
+  `;
+}
+
 export function renderStars(rating) {
   if (!rating) return '';
 
@@ -381,7 +394,7 @@ export function renderAboutPage({ store, currentPath, buildHref }) {
         <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-[280px,1fr]">
           <div class="reveal">
             <div class="overflow-hidden rounded-3xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-              ${avatar ? `<img src="${escapeHtml(avatar)}" alt="${escapeHtml(store.site.author)}" class="aspect-square w-full object-cover" loading="lazy" />` : `<div class="flex aspect-square items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-800 to-blue-700 text-5xl font-serif text-white">${escapeHtml((store.site.author || 'K').slice(0, 1))}</div>`}
+              ${avatar ? `<img src="${escapeHtml(avatar)}" alt="${escapeHtml(store.site.author)}" class="aspect-square w-full object-cover" loading="lazy" />` : renderProfilePlaceholder(store.site)}
             </div>
           </div>
 
