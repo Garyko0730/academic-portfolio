@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 import {
   buildCanonicalUrl,
@@ -12,6 +13,8 @@ const sampleAssetPaths = {
   css: '/academic-portfolio/assets/app.css',
   js: '/academic-portfolio/assets/app.js',
 };
+
+const mainCss = readFileSync(new URL('../src/styles/main.css', import.meta.url), 'utf8');
 
 function createSampleStoreWithoutAvatar() {
   return {
@@ -44,6 +47,53 @@ function createSampleStoreWithoutAvatar() {
     papers: [],
     blogPosts: [],
     projectContent: {},
+  };
+}
+
+function createSampleStoreWithProject() {
+  return {
+    site: {
+      title: 'KoPang · Academic Portfolio',
+      author: 'KoPang',
+      description: 'Portfolio placeholder',
+      siteUrl: 'https://example.com/',
+      github: 'https://github.com/Garyko0730',
+      email: 'kopang@example.com',
+      linkedin: null,
+      cv: null,
+      nav: [],
+      about: {
+        education: 'JNU',
+        bio: ['Intro paragraph'],
+        skills: ['Python'],
+      },
+      availability: {
+        cvLabel: 'Available on request',
+        linkedinLabel: 'Not public yet',
+      },
+    },
+    projects: [
+      {
+        id: 'vision-system',
+        title: 'Vision System',
+        subtitle: 'Industrial inspection',
+        summary: '项目摘要',
+        tech: ['YOLOv8', 'TensorRT'],
+        featured: true,
+        status: 'completed',
+        role: '算法开发',
+        github: 'https://github.com/example/vision-system',
+        date: '2026-03',
+      },
+    ],
+    papers: [],
+    blogPosts: [],
+    projectContent: {
+      'vision-system': {
+        slug: 'vision-system',
+        body: '## Project Body',
+      },
+    },
   };
 }
 
@@ -312,6 +362,27 @@ test('about page placeholder falls back to education when only one research focu
 
   assert.match(aboutPage.html, /Vision Platforms/);
   assert.match(aboutPage.html, /Computing Research Lead/);
+});
+
+test('project pages render a structured case-study placeholder cover when screenshots are missing', () => {
+  const pages = createSitePages({
+    store: createSampleStoreWithProject(),
+    assetPaths: sampleAssetPaths,
+  });
+
+  const projectPage = pages.find((page) => page.routePath === '/projects/vision-system/');
+  const projectsListPage = pages.find((page) => page.routePath === '/projects/');
+
+  assert.match(projectPage.html, /<div class="case-study-cover(?: [^"]*)?"/);
+  assert.match(projectPage.html, /data-case-study-placeholder="detail"/);
+  assert.match(projectPage.html, /case-study-cover--detail/);
+  assert.match(projectPage.html, /case-study-cover__title">Vision System/);
+  assert.match(projectPage.html, /case-study-cover__tags/);
+  assert.match(projectPage.html, /case-study-cover__status">completed/);
+  assert.match(projectsListPage.html, /<div class="case-study-cover(?: [^"]*)?"/);
+  assert.match(projectsListPage.html, /data-case-study-placeholder="card"/);
+  assert.match(projectsListPage.html, /case-study-cover--card/);
+  assert.match(mainCss, /\.case-study-cover--detail\s*\{[^}]*min-height:\s*24rem;/s);
 });
 
 test('createSitePages falls back to professional availability copy when availability data is missing', () => {

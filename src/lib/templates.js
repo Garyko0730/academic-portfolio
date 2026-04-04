@@ -6,16 +6,6 @@ function escapeHtml(value = '') {
     .replaceAll('"', '&quot;');
 }
 
-function placeholderVisual(title, subtitle = '') {
-  return `
-    <div class="flex h-full min-h-[220px] w-full flex-col justify-end rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-blue-700 p-6 text-white">
-      <p class="text-xs uppercase tracking-[0.3em] text-white/60">Portfolio v2</p>
-      <h3 class="mt-3 font-serif text-2xl font-semibold">${escapeHtml(title)}</h3>
-      ${subtitle ? `<p class="mt-2 max-w-md text-sm text-white/70">${escapeHtml(subtitle)}</p>` : ''}
-    </div>
-  `;
-}
-
 function renderProfilePlaceholder(site) {
   const authorInitial = escapeHtml((site.author || '').trim().slice(0, 1) || 'K');
   const [profileTitle, profileMeta] = site.researchFocus || [];
@@ -45,6 +35,24 @@ export function renderTags(tags = []) {
         `<span class="rounded-full bg-zinc-100 px-2.5 py-1 text-xs text-zinc-600 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:text-zinc-300 dark:ring-zinc-800">${escapeHtml(tag)}</span>`
     )
     .join('');
+}
+
+function renderCaseStudyCover(project, context = 'cover') {
+  const subtitle = project.subtitle ? `<p class="case-study-cover__subtitle">${escapeHtml(project.subtitle)}</p>` : '';
+  const tagsHtml = renderTags((project.tech || []).slice(0, 3));
+  const tagsSection = tagsHtml ? `<div class="case-study-cover__tags">${tagsHtml}</div>` : '';
+  const statusSection = project.status ? `<p class="case-study-cover__status">${escapeHtml(project.status)}</p>` : '';
+  const contextClass = `case-study-cover--${escapeHtml(context)}`;
+
+  return `
+    <div class="case-study-cover ${contextClass}" data-case-study-placeholder="${escapeHtml(context)}">
+      <p class="case-study-cover__eyebrow">Case Study</p>
+      <h3 class="case-study-cover__title">${escapeHtml(project.title)}</h3>
+      ${subtitle}
+      ${tagsSection}
+      ${statusSection}
+    </div>
+  `;
 }
 
 function isNavActive(navPath, currentPath) {
@@ -119,7 +127,7 @@ function renderProjectCard(project, buildHref) {
   return `
     <a href="${buildHref(`/projects/${project.id}/`)}" class="project-card reveal block overflow-hidden rounded-3xl border border-zinc-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-900">
       <div class="aspect-[4/3] overflow-hidden">
-        ${project.cover ? `<img src="${escapeHtml(project.cover)}" alt="${escapeHtml(project.title)}" class="h-full w-full object-cover transition-transform duration-500" loading="lazy" />` : placeholderVisual(project.title, project.subtitle)}
+        ${project.cover ? `<img src="${escapeHtml(project.cover)}" alt="${escapeHtml(project.title)}" class="h-full w-full object-cover transition-transform duration-500" loading="lazy" />` : renderCaseStudyCover(project, 'card')}
       </div>
       <div class="space-y-4 p-6">
         <div>
@@ -288,7 +296,7 @@ export function renderProjectDetailPage({
         <a href="${buildHref('/projects/')}" class="mb-8 inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-blue-600 dark:hover:text-blue-400">← Back to Projects</a>
 
         <div class="mb-8 overflow-hidden rounded-3xl">
-          ${project.cover ? `<img src="${escapeHtml(project.cover)}" alt="${escapeHtml(project.title)}" class="h-full w-full object-cover" />` : placeholderVisual(project.title, project.subtitle)}
+          ${project.cover ? `<img src="${escapeHtml(project.cover)}" alt="${escapeHtml(project.title)}" class="h-full w-full object-cover" />` : renderCaseStudyCover(project, 'detail')}
         </div>
 
         <div class="mb-8 flex flex-wrap items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400">

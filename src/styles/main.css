@@ -215,3 +215,55 @@ a {
   margin: 0;
   color: rgba(255, 255, 255, 0.8);
 }
+
+.case-study-cover {
+  min-height: 100%;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #0f172a, #111827, #1d4ed8);
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(15, 23, 42, 0.6);
+}
+
+.case-study-cover--detail {
+  min-height: 24rem;
+}
+
+.case-study-cover__eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.case-study-cover__title {
+  font-size: 2rem;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+.case-study-cover__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.case-study-cover__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.case-study-cover__status {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e0f2fe;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
